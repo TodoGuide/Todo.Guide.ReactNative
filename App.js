@@ -20,7 +20,32 @@ const instructions = Platform.select({
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
-
+const orderTodos = function (todos) {
+  let todayTodos = []
+  let weekTodos = []
+  let monthTodos = []
+  for(let todo of todos) {
+    if(todo.complete) {
+      continue;
+    }
+    console.log(todo)
+    switch(todo.priority) {
+      case 'today':
+        todayTodos.push(todo)
+        break;
+      case 'week':
+        weekTodos.push(todo)
+        break;
+      case 'month':
+        monthTodos.push(todo)
+        break;
+    }
+  }
+  console.log(todayTodos)
+  console.log(weekTodos)
+  console.log(monthTodos)
+  return todayTodos.concat(weekTodos).concat(monthTodos)
+}
 export default class App extends Component {
   constructor() {
     super()
@@ -45,16 +70,18 @@ export default class App extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const todos = [];
     querySnapshot.forEach((doc) => {
-      const { title, complete } = doc.data();
+      const { title, complete, priority, estimate } = doc.data();
       todos.push({
         key: doc.id,
         doc, // DocumentSnapshot
         title,
         complete,
+        priority,
+        estimate
       });
     });
     this.setState({ 
-      todos,
+      todos: orderTodos(todos),
       loading: false,
    });
   }
@@ -75,7 +102,7 @@ export default class App extends Component {
       <SafeAreaView style={{ flex: 1}}>
         <FlatList
           data={this.state.todos}
-          renderItem={({ item }) => <Todo {...item} />}
+          renderItem={({ item }) => <Todo key={item.key} {...item} />}
         />
         <TodoWizard addTodo={(todo) => this.addTodo(todo)}/>
       </SafeAreaView>
