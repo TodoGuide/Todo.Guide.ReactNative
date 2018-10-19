@@ -25,6 +25,9 @@ const orderTodos = function (todos) {
   let weekTodos = []
   let monthTodos = []
   for(let todo of todos) {
+    if(todo.complete) {
+      continue;
+    }
     console.log(todo)
     switch(todo.priority) {
       case 'today':
