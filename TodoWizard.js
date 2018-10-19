@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, InputAccessoryView, TouchableHighlight } from 'react-native';
 export default class TodoWizard extends React.PureComponent {
-    // toggle a todo as completed or not via update()
     constructor() {
       super()
       this.state = {}
@@ -16,8 +15,12 @@ export default class TodoWizard extends React.PureComponent {
       this.setState({estimate: minutes})
     }
     setPriority(priority) {
+
+      //add the todo since this is the last step of the wizard.
       this.props.addTodo({title: this.state.title, priority, estimate: this.state.estimate})
-      this.setState({title: null, priority: null, estimate: null, textInput: null})
+
+      //clear state to start wizard over
+      this.setState({title: null, priority: null, estimate: null, titleInput: ''})
     }
 
     render() {
