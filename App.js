@@ -7,10 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, FlatList, TextInput, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, FlatList, TextInput, Button, SafeAreaView} from 'react-native';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import firebase from 'react-native-firebase';
 import Todo from './Todo'; // we'll create this next
+import TodoWizard from './TodoWizard'; // we'll create this next
 
 
 const instructions = Platform.select({
@@ -62,43 +63,22 @@ export default class App extends Component {
     this.setState({ textInput: value });
   }
 
-  addTodo() {
-    this.ref.add({
-      title: this.state.textInput,
-      complete: false,
-    });
-    this.setState({
-      textInput: '',
-    });
+  addTodo(todo) {
+    this.ref.add(todo);
   }
 
   render() {
     if (this.state.loading) {
       return null; // or render a loading icon
     }
-    // Buttons
-    const swipeoutBtns = [
-      {
-        text: 'Completed'
-      }
-    ]
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1}}>
         <FlatList
           data={this.state.todos}
           renderItem={({ item }) => <Todo {...item} />}
         />
-        <TextInput
-          placeholder={'Add TODO'}
-          value={this.state.textInput}
-          onChangeText={(text) => this.updateTextInput(text)}
-        />
-        <Button
-          title={'Add TODO'}
-          disabled={!this.state.textInput.length}
-          onPress={() => this.addTodo()}
-        />
-      </View>
+        <TodoWizard addTodo={(todo) => this.addTodo(todo)}/>
+      </SafeAreaView>
     );
   }
 }
