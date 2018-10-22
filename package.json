@@ -9,7 +9,10 @@
   "dependencies": {
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
-    "react-native-cli": "^2.0.1"
+    "react-native-calendars": "^1.21.0",
+    "react-native-cli": "^2.0.1",
+    "react-native-firebase": "^5.0.0",
+    "react-native-swipeout": "^2.3.6"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
