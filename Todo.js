@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableHighlight, View, Text, Button } from 'react-native';
-import Swipeout from 'react-native-swipeout';
 
 colorForEstimate = {
     5:'#CADBF7',

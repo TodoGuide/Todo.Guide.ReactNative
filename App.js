@@ -8,7 +8,6 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, FlatList, TextInput, Button, SafeAreaView} from 'react-native';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import firebase from 'react-native-firebase';
 import Todo from './Todo'; // we'll create this next
 import TodoWizard from './TodoWizard'; // we'll create this next
